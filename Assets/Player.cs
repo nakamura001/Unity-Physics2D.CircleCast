@@ -5,6 +5,7 @@ using System.Collections;
 public class Player : MonoBehaviour {
 	public Text infoText;
 	public SpriteRenderer player2;
+	public SpriteRenderer hit;
 	float radius = 0.5f;
 	Vector2 origin;
 	Vector3 angles;
@@ -41,8 +42,12 @@ public class Player : MonoBehaviour {
 		RaycastHit2D ray = Physics2D.CircleCast(origin, radius, new Vector2(1f, 0), distance);
 		if (ray.collider) {
 			infoText.text = ray.collider.name;
+			hit.enabled = true;
+			Vector2 hitPos = ray.point;
+			hit.gameObject.transform.position = new Vector3(hitPos.x, hitPos.y, 0);
 		} else {
 			infoText.text = "No data";
+			hit.enabled = false;
 		}
 	}
 }
